@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# PLACEHOLDER: replace with the verified production domain before launch.
+Sitemap: https://domain-placeholder.invalid/sitemap.xml
