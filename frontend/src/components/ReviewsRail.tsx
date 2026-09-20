@@ -10,68 +10,113 @@ function ReviewRow({ items, reverse, nativeScroll }: {
 }) {
   const id = useId()
   const rail = useRef<HTMLDivElement>(null)
-  const track = useRef<HTMLDivElement>(null)
   const group = useRef<HTMLDivElement>(null)
-  const animation = useRef<Animation | null>(null)
-  const duration = useRef(0)
-  const drag = useRef<{ x: number; y: number; active: boolean } | null>(null)
+  const drag = useRef<{ x: number; left: number } | null>(null)
+  const pointerDown = useRef(false)
+  const manual = useRef(false)
+  const resumeAt = useRef(0)
+  const buttonScroll = useRef<{ from: number; to: number; started: number } | null>(null)
   const row = reverse ? 2 : 1
   const speed = reverse ? -0.027 : 0.03
 
+  function interact() {
+    buttonScroll.current = null
+    manual.current = true
+    resumeAt.current = performance.now() + 180
+  }
+
+  function wrap() {
+    const el = rail.current
+    const width = group.current?.offsetWidth ?? 0
+    if (!el || nativeScroll || !width || width < el.clientWidth) return
+    const previous = el.scrollLeft
+    const next = width + ((previous - width) % width + width) % width
+    if (Math.abs(next - previous) > 0.5) {
+      el.scrollLeft = next
+      if (drag.current) drag.current.left += next - previous
+    }
+  }
+
   useEffect(() => {
     const el = rail.current
-    const content = track.current
     const firstGroup = group.current
-    if (!el || !content || !firstGroup) return
+    if (!el || !firstGroup) return
     drag.current = null
+    pointerDown.current = false
+    manual.current = false
+    buttonScroll.current = null
     el.scrollLeft = 0
     if (nativeScroll) return
 
-    function animate() {
-      const width = firstGroup!.offsetWidth
-      if (!width) return
-      const previousTime = Number(animation.current?.currentTime ?? 0)
-      const progress = duration.current ? (previousTime % duration.current) / duration.current : 0
-      animation.current?.cancel()
-      duration.current = width / Math.abs(speed)
-      // A compositor transform keeps looping during native vertical scrolling.
-      // No per-frame layout reads or writes to the browser's scroll position.
-      animation.current = content!.animate([
-        { transform: `translate3d(${-width * (reverse ? 2 : 1)}px, 0, 0)` },
-        { transform: `translate3d(${-width * (reverse ? 1 : 2)}px, 0, 0)` },
-      ], { duration: duration.current, iterations: Infinity, easing: 'linear' })
-      animation.current.currentTime = progress * duration.current
+    let width = firstGroup.offsetWidth
+    let viewport = el.clientWidth
+    el.scrollLeft = width + (reverse ? 150 : 0)
+    let position = el.scrollLeft
+    let frame = 0
+    let last = 0
+    let visible = true
+    const normalize = (value: number) => width > 0 && width >= viewport
+      ? width + ((value - width) % width + width) % width : value
+    const resize = new ResizeObserver(() => {
+      width = firstGroup.offsetWidth
+      viewport = el.clientWidth
+      buttonScroll.current = null
+      position = normalize(el.scrollLeft)
+      el.scrollLeft = position
+    })
+    resize.observe(firstGroup)
+    resize.observe(el)
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting })
+    observer.observe(el)
+    function tick(now: number) {
+      const delta = last ? Math.min(now - last, 40) : 0
+      last = now
+      const movement = buttonScroll.current
+      if (movement) {
+        const progress = Math.min(1, (now - movement.started) / 420)
+        position = normalize(movement.from + (movement.to - movement.from) * (1 - Math.pow(1 - progress, 3)))
+        el!.scrollLeft = position
+        if (progress === 1) {
+          buttonScroll.current = null
+          manual.current = false
+          position = el!.scrollLeft
+        }
+      } else if (width >= viewport && width > 0 && visible && !document.hidden && !pointerDown.current && now > resumeAt.current) {
+        if (manual.current) {
+          position = el!.scrollLeft
+          manual.current = false
+        }
+        // Preserve fractional pixels so autoplay stays smooth at high refresh rates.
+        position = normalize(position + speed * delta)
+        el!.scrollLeft = position
+      } else {
+        position = el!.scrollLeft
+      }
+      frame = requestAnimationFrame(tick)
     }
-    animate()
-    const observer = new ResizeObserver(animate)
-    observer.observe(firstGroup)
+    frame = requestAnimationFrame(tick)
     return () => {
+      cancelAnimationFrame(frame)
+      resize.disconnect()
       observer.disconnect()
-      animation.current?.cancel()
-      animation.current = null
-      duration.current = 0
+      buttonScroll.current = null
     }
   }, [items, reverse, nativeScroll, speed])
-
-  function shiftPosition(offset: number) {
-    if (nativeScroll) {
-      if (rail.current) rail.current.scrollLeft += offset
-      return
-    }
-    const loop = animation.current
-    if (!loop || !duration.current) return
-    const time = Number(loop.currentTime ?? 0) + offset / speed
-    loop.currentTime = ((time % duration.current) + duration.current) % duration.current
-  }
 
   function scroll(direction: number) {
     const el = rail.current
     if (!el) return
-    shiftPosition(direction * el.clientWidth * 0.72)
+    interact()
+    wrap()
+    const offset = direction * el.clientWidth * 0.72
+    if (nativeScroll) el.scrollLeft += offset
+    else buttonScroll.current = { from: el.scrollLeft, to: el.scrollLeft + offset, started: performance.now() }
   }
 
   function endDrag() {
+    pointerDown.current = false
     drag.current = null
+    interact()
   }
 
   const ordered = reverse ? [...items].reverse() : items
@@ -80,11 +125,13 @@ function ReviewRow({ items, reverse, nativeScroll }: {
       <div
         ref={rail} id={id} className={`reviews-rail${nativeScroll ? '' : ' reviews-rail-loop'}`} tabIndex={0} role="region"
         aria-label={`Omdömen, rad ${row}. Svep eller använd piltangenterna.`}
-        onWheel={(event) => {
-          if (!nativeScroll && Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
-            shiftPosition(event.deltaX)
+        onScroll={() => {
+          if (manual.current && !buttonScroll.current) {
+            resumeAt.current = performance.now() + 180
+            wrap()
           }
         }}
+        onWheel={interact}
         onKeyDown={(event) => {
           if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
             event.preventDefault()
@@ -92,34 +139,27 @@ function ReviewRow({ items, reverse, nativeScroll }: {
           }
         }}
         onPointerDown={(event) => {
-          if (event.button !== 0 || (nativeScroll && event.pointerType !== 'mouse')) return
-          drag.current = { x: event.clientX, y: event.clientY, active: event.pointerType === 'mouse' }
-          if (drag.current.active) event.currentTarget.setPointerCapture(event.pointerId)
+          if (event.button !== 0) return
+          pointerDown.current = true
+          interact()
+          event.currentTarget.setPointerCapture(event.pointerId)
+          if (event.pointerType === 'mouse') {
+            drag.current = { x: event.clientX, left: event.currentTarget.scrollLeft }
+          }
         }}
         onPointerMove={(event) => {
           const gesture = drag.current
           if (!gesture) return
-          const dx = event.clientX - gesture.x
-          const dy = event.clientY - gesture.y
-          if (!gesture.active) {
-            if (Math.abs(dy) > Math.abs(dx)) {
-              endDrag()
-              return
-            }
-            if (Math.abs(dx) < 6) return
-            gesture.active = true
-            event.currentTarget.setPointerCapture(event.pointerId)
-          }
-          shiftPosition(-dx)
-          gesture.x = event.clientX
-          gesture.y = event.clientY
+          event.currentTarget.scrollLeft = gesture.left - (event.clientX - gesture.x)
+          interact()
+          wrap()
         }}
         onPointerUp={endDrag} onPointerCancel={endDrag}
         onLostPointerCapture={(event) => {
           if (event.target === event.currentTarget) endDrag()
         }}
       >
-        <div className="reviews-track" ref={track}>
+        <div className="reviews-track">
           {(nativeScroll ? [0] : [0, 1, 2]).map((copy) => (
             <div className="reviews-group" key={copy} ref={copy === 0 ? group : undefined}
               aria-hidden={copy === (nativeScroll ? 0 : 1) ? undefined : true}>
