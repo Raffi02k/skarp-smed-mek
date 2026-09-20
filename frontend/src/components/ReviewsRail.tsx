@@ -7,10 +7,10 @@ function wrapPosition(position: number, width: number) {
   return width + (((position - width) % width) + width) % width
 }
 
-function ReviewRow({ items, reverse, reduced }: {
+function ReviewRow({ items, reverse, nativeScroll }: {
   items: Review[]
   reverse: boolean
-  reduced: boolean
+  nativeScroll: boolean
 }) {
   const id = useId()
   const rail = useRef<HTMLDivElement>(null)
@@ -29,7 +29,7 @@ function ReviewRow({ items, reverse, reduced }: {
   function wrap() {
     const el = rail.current
     const width = group.current?.offsetWidth || 0
-    if (!el || reduced || !width || width < el.clientWidth) return
+    if (!el || nativeScroll || !width || width < el.clientWidth) return
     const previous = el.scrollLeft
     const next = wrapPosition(previous, width)
     if (Math.abs(next - previous) > 0.5) {
@@ -46,8 +46,9 @@ function ReviewRow({ items, reverse, reduced }: {
     pointerDown.current = false
     manual.current = false
     const width = group.current?.offsetWidth || 0
-    el.scrollLeft = !reduced && width >= el.clientWidth ? width + (reverse ? 150 : 0) : 0
-    if (reduced) return
+    el.scrollLeft = !nativeScroll && width >= el.clientWidth ? width + (reverse ? 150 : 0) : 0
+    // Touch scrolling, including momentum, belongs entirely to the browser.
+    if (nativeScroll) return
 
     let frame = 0
     let lastTime = 0
@@ -94,7 +95,7 @@ function ReviewRow({ items, reverse, reduced }: {
       observer.disconnect()
       movement.current = null
     }
-  }, [items, reverse, reduced])
+  }, [items, reverse, nativeScroll])
 
   function scroll(direction: number) {
     const el = rail.current
@@ -102,7 +103,7 @@ function ReviewRow({ items, reverse, reduced }: {
     interact()
     wrap()
     const offset = direction * el.clientWidth * 0.72
-    if (reduced) {
+    if (nativeScroll) {
       el.scrollLeft += offset
     } else {
       movement.current = { from: el.scrollLeft, to: el.scrollLeft + offset, started: performance.now() }
@@ -135,12 +136,10 @@ function ReviewRow({ items, reverse, reduced }: {
           }
         }}
         onPointerDown={(event) => {
-          if (event.button !== 0) return
+          if (event.button !== 0 || event.pointerType !== 'mouse') return
           pointerDown.current = true
           interact()
-          if (event.pointerType === 'mouse') {
-            drag.current = { x: event.clientX, left: event.currentTarget.scrollLeft }
-          }
+          drag.current = { x: event.clientX, left: event.currentTarget.scrollLeft }
           event.currentTarget.setPointerCapture(event.pointerId)
         }}
         onPointerMove={(event) => {
@@ -151,9 +150,9 @@ function ReviewRow({ items, reverse, reduced }: {
         onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag}
       >
         <div className="reviews-track">
-          {(reduced ? [0] : [0, 1, 2]).map((copy) => (
+          {(nativeScroll ? [0] : [0, 1, 2]).map((copy) => (
             <div className="reviews-group" key={copy} ref={copy === 0 ? group : undefined}
-              aria-hidden={copy === (reduced ? 0 : 1) ? undefined : true}>
+              aria-hidden={copy === (nativeScroll ? 0 : 1) ? undefined : true}>
               {ordered.map((review, index) => {
                 const rating = Number.isFinite(review.rating) ? Math.max(0, Math.min(5, review.rating)) : 0
                 return (
@@ -187,12 +186,14 @@ function ReviewRow({ items, reverse, reduced }: {
   )
 }
 
+const nativeScrollQuery = '(max-width: 980px), (any-pointer: coarse), (hover: none), (prefers-reduced-motion: reduce)'
+
 export default function ReviewsRail() {
   const headingId = useId()
-  const [reduced, setReduced] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [nativeScroll, setNativeScroll] = useState(() => window.matchMedia(nativeScrollQuery).matches)
   useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setReduced(query.matches)
+    const query = window.matchMedia(nativeScrollQuery)
+    const update = () => setNativeScroll(query.matches)
     update()
     query.addEventListener('change', update)
     return () => query.removeEventListener('change', update)
@@ -208,8 +209,8 @@ export default function ReviewsRail() {
         <p>{isDemo ? 'Förhandsvisning med demoomdömen – ersätts med riktiga kundomdömen.' : 'Kundernas egna ord om arbetet, kontakten och resultatet.'}</p>
       </div>
       <div className="reviews-rows">
-        <ReviewRow items={items} reverse={false} reduced={reduced} />
-        <ReviewRow items={items} reverse reduced={reduced} />
+        <ReviewRow items={items} reverse={false} nativeScroll={nativeScroll} />
+        <ReviewRow items={items} reverse nativeScroll={nativeScroll} />
       </div>
     </section>
   )

@@ -32,7 +32,7 @@ body {
   color: var(--text);
   font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 body.menu-open { overflow: hidden; }
 button, input, textarea, select { font: inherit; }
@@ -121,8 +121,8 @@ p { margin: 0; color: var(--muted); }
 .header-cta { min-height: 44px; padding-inline: 18px; white-space: nowrap; }
 .menu-toggle { display: none; width: 48px; height: 48px; padding: 11px; background: rgba(255,255,255,.06); border: 1px solid var(--line); border-radius: 2px; }
 .menu-toggle span { display: block; width: 100%; height: 2px; margin: 5px 0; background: white; }
-.mobile-menu { position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: 0; background: rgba(2,6,11,.64); backdrop-filter: blur(5px); transition: opacity .2s ease; }
-.mobile-menu.is-open { pointer-events: auto; opacity: 1; }
+.mobile-menu { position: fixed; inset: 0; z-index: 90; visibility: hidden; pointer-events: none; opacity: 0; background: rgba(2,6,11,.64); backdrop-filter: blur(5px); transition: opacity .2s ease, visibility 0s linear .28s; }
+.mobile-menu.is-open { visibility: visible; pointer-events: auto; opacity: 1; transition-delay: 0s; }
 .mobile-menu { height: 100dvh; overflow-y: auto; }
 .mobile-menu-panel { margin-left: auto; width: min(88vw, 420px); min-height: 100dvh; padding: 120px 28px 36px; background: linear-gradient(180deg,#07111d,#050a11); border-left: 1px solid var(--line); transform: translateX(100%); transition: transform .28s ease; }
 .mobile-menu.is-open .mobile-menu-panel { transform: translateX(0); }
@@ -366,7 +366,7 @@ p { margin: 0; color: var(--muted); }
 @media (max-width: 980px) {
   :root { --shell: min(100% - 36px, 900px); }
   .site-header { transition: background .18s ease, border-color .18s ease; }
-  .site-header.is-scrolled { background: rgba(5,11,19,.95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .site-header.is-scrolled { background: #050b13; -webkit-backdrop-filter: none; backdrop-filter: none; }
   .desktop-nav, .header-cta { display: none; }
   .header-inner { height: 76px; grid-template-columns: 1fr auto; }
   .brand-link img { width: 100px; }
@@ -397,7 +397,7 @@ p { margin: 0; color: var(--muted); }
 @media (max-width: 640px) {
   :root { --shell: calc(100% - 28px); }
   .header-inner { height: 70px; }
-  .hero { min-height: 100dvh; }
+  .hero { min-height: 100svh; }
   .hero-background { background-position: 58% center; transform: none; }
   .hero-video { opacity: .26; mix-blend-mode: normal; }
   .hero-overlay { background: linear-gradient(90deg,rgba(2,5,10,.96),rgba(2,6,12,.77)),linear-gradient(0deg,rgba(4,10,17,.78),transparent 38%); }
@@ -447,6 +447,13 @@ p { margin: 0; color: var(--muted); }
   .hero-copy h1 { font-size: clamp(3rem,14.5vw,4.5rem); }
   .button { min-height: 48px; padding-inline: 18px; }
   .gallery-grid { grid-auto-rows: 360px; }
+}
+
+/* Avoid live backdrop repainting beneath mobile scrolling content. */
+@media (max-width: 980px), (any-pointer: coarse) {
+  .site-header.is-scrolled { background: #050b13; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .mobile-menu, .button-ghost, .hero-brand-card, .map-caption { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .hero-video { mix-blend-mode: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {
