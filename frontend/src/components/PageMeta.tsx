@@ -23,7 +23,7 @@ export default function PageMeta({
   title,
   description,
   path = '/',
-  image = '/images/og.jpg',
+  image = '/images/skarpsmed_index.png',
   noindex = false,
 }: PageMetaProps) {
   useEffect(() => {
