@@ -35,7 +35,7 @@ export default function HomePage() {
           muted
           loop
           playsInline
-          poster="/images/hero-poster.jpg"
+          poster="/images/hero-poster.webp"
           aria-hidden="true"
         >
           <source src="/media/hero-welding-loop.mp4" type="video/mp4" />
@@ -64,7 +64,7 @@ export default function HomePage() {
           </div>
 
           <div className="hero-brand-card">
-            <img src="/images/skarp-logo-vit-new.png" alt="Skarp Smed & Mek" />
+            <img src="/images/skarp-logo-vit-new.webp" alt="Skarp Smed & Mek" />
             <p>Drivs av FA Lucas Skarp</p>
           </div>
         </div>

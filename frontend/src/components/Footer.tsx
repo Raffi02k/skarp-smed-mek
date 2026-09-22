@@ -17,7 +17,7 @@ export default function Footer() {
       <div className="footer-grid shell">
         <div className="footer-brand">
           <Link to="/" onClick={onLogoClick} aria-label="Till startsidan">
-            <img src="/images/skarp-logo-vit-new.png" alt="Skarp Smed & Mek" />
+            <img src="/images/skarp-logo-vit-new.webp" alt="Skarp Smed & Mek" />
           </Link>
           <p>{siteContent.shortDescription}</p>
           <span className="legal-name">Drivs av {siteContent.legalName}</span>
@@ -53,7 +53,7 @@ export default function Footer() {
         <span>© {new Date().getFullYear()} Skarp Smed & Mek</span>
         <a className="mediamagnet-credit" href={siteContent.mediaMagnetUrl} target="_blank" rel="noreferrer">
           <span>Byggd av</span>
-          <img src="/images/mediamagnet_logo_with_text_vit.png" alt="MediaMagnet" />
+          <img src="/images/mediamagnet_logo_with_text_vit.webp" alt="MediaMagnet" />
         </a>
       </div>
     </footer>

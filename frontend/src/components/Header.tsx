@@ -59,7 +59,7 @@ export default function Header() {
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''}`}>
       <div className="header-inner shell">
         <Link className="brand-link" to="/" onClick={onLogoClick} aria-label="Skarp Smed & Mek – startsidan">
-          <img src="/images/skarp-logo-vit-new.png" alt="Skarp Smed & Mek" />
+          <img src="/images/skarp-logo-vit-new.webp" alt="Skarp Smed & Mek" />
         </Link>
 
         <nav className="desktop-nav" aria-label="Huvudnavigation">
