@@ -9,13 +9,16 @@ export const siteContent = {
     'Skarp Smed & Mek utgår från Götene och arbetar främst i Västra Götaland. För större uppdrag kan arbetet utföras längre bort i Sverige.',
   serviceArea:
     'Götene och Västra Götaland. Längre resor kan vara aktuella för större uppdrag.',
-  phone: '',
+  phone: '070-123 45 67',
+  phoneDisplay: '070-123 45 67',
   email: '',
   address: '',
   organisationNumber: '',
   openingHours: '',
   primaryCta: 'Begär offert',
   secondaryCta: 'Se tjänster',
+  heroVideoUrl: '/media/hero-video.mp4',
+  heroPosterUrl: '/images/hero-poster.webp',
   mediaMagnetUrl: 'https://mediamagnet.se',
   navigation: [
     { label: 'Start', to: '/' },

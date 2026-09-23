@@ -107,18 +107,35 @@ export default function Header() {
           Begär offert
         </Link>
 
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-label={open ? 'Stäng meny' : 'Öppna meny'}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
+        <div className="header-actions">
+          {siteContent.phone && (
+            <a
+              href={`tel:${siteContent.phone.replace(/[^0-9+]/g, '')}`}
+              className="header-phone-btn"
+              aria-label={`Ring ${siteContent.phone}`}
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <span>Ring</span>
+            </a>
+          )}
+
+          <button
+            className={`menu-toggle ${open ? 'is-open' : ''}`}
+            type="button"
+            aria-label={open ? 'Stäng meny' : 'Öppna meny'}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((value) => !value)}
+          >
+            <div className="menu-toggle-inner" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+          </button>
+        </div>
       </div>
 
       <div
@@ -132,7 +149,21 @@ export default function Header() {
         }}
       >
         <div className="mobile-menu-panel">
-          <p className="eyebrow">SKARP SMED & MEK</p>
+          <div className="mobile-menu-header">
+            <p className="eyebrow" style={{ margin: 0 }}>SKARP SMED &amp; MEK</p>
+            <button
+              type="button"
+              className="mobile-menu-close-btn"
+              aria-label="Stäng meny"
+              onClick={() => setOpen(false)}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
           <nav aria-label="Mobilnavigation">
             {siteContent.navigation.map((item) => (
               <NavLink key={item.to} to={item.to} onClick={() => setOpen(false)}>
@@ -140,9 +171,26 @@ export default function Header() {
               </NavLink>
             ))}
           </nav>
-          <Link className="button button-primary button-block" to="/kontakt#offert" onClick={() => setOpen(false)}>
-            Begär offert
-          </Link>
+
+          <div className="mobile-menu-ctas">
+            {siteContent.phone && (
+              <a
+                href={`tel:${siteContent.phone.replace(/[^0-9+]/g, '')}`}
+                className="button button-call button-block"
+                onClick={() => setOpen(false)}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <span>Ring {siteContent.phone}</span>
+              </a>
+            )}
+
+            <Link className="button button-primary button-block" to="/kontakt#offert" onClick={() => setOpen(false)}>
+              Begär offert
+            </Link>
+          </div>
+
           <p className="mobile-menu-note">Götene · Västra Götaland · större uppdrag även längre bort</p>
         </div>
       </div>

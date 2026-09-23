@@ -27,52 +27,41 @@ export default function HomePage() {
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
 
-      <section className="hero">
-        <div className="hero-background" style={{ backgroundImage: `url("${temporaryMedia.weldingWorkshop}")` }} aria-hidden="true" />
-        <video
-          className="hero-video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/images/hero-poster.webp"
-          aria-hidden="true"
-        >
-          <source src="/media/hero-welding-loop.mp4" type="video/mp4" />
-        </video>
-        <div className="hero-overlay" aria-hidden="true" />
-        <div className="hero-grid" aria-hidden="true" />
+      {/* 0. HERO VIDEO SECTION */}
+      <section className="hero-video">
+        <div className="hero-video__bg" aria-hidden="true">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={siteContent.heroPosterUrl}
+            src={siteContent.heroVideoUrl}
+          />
+        </div>
+        <div className="hero-video__overlay" aria-hidden="true" />
+        <div className="hero-video__content">
+          <img
+            src="/images/skarp-logo-vit-new.webp"
+            alt={siteContent.brandName}
+            className="hero-video__logo"
+            width="420"
+            height="420"
+          />
 
-        <div className="shell hero-content">
-          <div className="hero-copy">
-            <p className="eyebrow hero-eyebrow">SVETS · SMIDE · MEK · GÖTENE</p>
-            <h1>
-              Metallarbete som <span>löser riktiga problem.</span>
-            </h1>
-            <p className="hero-lead">
-              Specialtillverkning i metall, svetsning, smide och maskinreparation. Utgår från Götene och tar uppdrag i Västra Götaland – längre bort när jobbet kräver det.
-            </p>
-            <div className="hero-actions">
-              <Link className="button button-primary" to="/kontakt#offert">Begär offert</Link>
-              <Link className="button button-ghost" to="/tjanster">Se vad jag gör</Link>
-            </div>
-            <div className="hero-trust" aria-label="Snabbfakta">
-              <span>Götene</span>
-              <span>Västra Götaland</span>
-              <span>Specialjobb på beställning</span>
-            </div>
-          </div>
+          <h1 className="hero-video__subtitle">
+            Specialtillverkning i metall, svetsning, smide och maskinreparation i {siteContent.city} &amp; {siteContent.region}.
+          </h1>
 
-          <div className="hero-brand-card">
-            <img src="/images/skarp-logo-vit-new.webp" alt="Skarp Smed & Mek" />
-            <p>Drivs av FA Lucas Skarp</p>
+          <div className="hero-video__ctas">
+            <Link to="/kontakt#offert" className="hero-video__cta hero-video__cta--primary">
+              Begär offert
+            </Link>
+            <Link to="/tjanster" className="hero-video__cta">
+              Se våra tjänster
+            </Link>
           </div>
         </div>
-
-        <a className="scroll-cue" href="#tjanster" aria-label="Fortsätt till tjänster">
-          <span />
-          Utforska
-        </a>
       </section>
 
       <section className="trust-strip" aria-label="Det här erbjuder vi">
