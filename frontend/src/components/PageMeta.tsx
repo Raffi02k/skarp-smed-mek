@@ -23,7 +23,7 @@ export default function PageMeta({
   title,
   description,
   path = '/',
-  image = '/images/hero-bild.jpg',
+  image = '/og.jpg',
   noindex = false,
 }: PageMetaProps) {
   useEffect(() => {
