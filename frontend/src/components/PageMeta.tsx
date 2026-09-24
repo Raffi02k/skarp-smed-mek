@@ -23,7 +23,7 @@ export default function PageMeta({
   title,
   description,
   path = '/',
-  image = '/images/skarpsmed_index.jpg',
+  image = '/images/hero-bild.png',
   noindex = false,
 }: PageMetaProps) {
   useEffect(() => {
@@ -31,6 +31,7 @@ export default function PageMeta({
     const base = configured || window.location.origin
     const canonical = `${base}${path.startsWith('/') ? path : `/${path}`}`
     const ogImage = image.startsWith('http') ? image : `${base}${image}`
+    const imageType = ogImage.toLowerCase().endsWith('.png') ? 'image/png' : 'image/jpeg'
 
     document.title = title
     upsertMeta('meta[name="description"]', 'content', description)
@@ -38,6 +39,7 @@ export default function PageMeta({
     upsertMeta('meta[property="og:description"]', 'content', description)
     upsertMeta('meta[property="og:url"]', 'content', canonical)
     upsertMeta('meta[property="og:image"]', 'content', ogImage)
+    upsertMeta('meta[property="og:image:type"]', 'content', imageType)
     upsertMeta('meta[name="twitter:title"]', 'content', title)
     upsertMeta('meta[name="twitter:description"]', 'content', description)
     upsertMeta('meta[name="twitter:image"]', 'content', ogImage)
