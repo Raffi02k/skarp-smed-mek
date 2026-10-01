@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { locationBySlug } from '../content/locations'
 
 export default function ContactForm() {
+  const [searchParams] = useSearchParams()
+  const ortSlug = searchParams.get('ort')
+  const matchedLocation = ortSlug ? locationBySlug(ortSlug) : null
+  const defaultOrt = matchedLocation ? matchedLocation.name : (ortSlug || '')
+
   const [message, setMessage] = useState('')
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
@@ -45,8 +52,9 @@ export default function ContactForm() {
 
       <label>
         Ort / var jobbet finns
-        <input name="location" maxLength={120} autoComplete="address-level2" />
+        <input name="location" defaultValue={defaultOrt} key={defaultOrt} maxLength={120} autoComplete="address-level2" />
       </label>
+
       <label>
         <span>Beskriv jobbet <span aria-hidden="true">*</span></span>
         <textarea name="message" required maxLength={1800} rows={6} placeholder="Vad ska tillverkas, svetsas eller repareras? Beskriv gärna mått, användning och tidsplan om du vet den." />
