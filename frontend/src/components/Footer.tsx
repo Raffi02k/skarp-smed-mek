@@ -55,12 +55,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Orter SEO Pills (Screenshot 1) */}
+        {/* Orter SEO Pills */}
         <div className="footer-orter-section shell">
-          <div className="footer-orter-header">
-            <span className="footer-orter-badge">Orter</span>
-          </div>
           <div className="footer-orter-list">
+            <span className="footer-orter-badge">Orter</span>
             {locations.map((loc) => {
               const isActive = location.pathname === `/orter/${loc.slug}`
               return (

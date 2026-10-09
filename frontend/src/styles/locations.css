@@ -5,11 +5,8 @@
 
 /* Footer Orter Bar (Screenshot 1) */
 .footer-orter-section {
-  padding: 44px 0 38px;
+  padding: 34px 0 30px;
   border-top: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 .footer-orter-header {
@@ -21,15 +18,18 @@
 .footer-orter-badge {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
-  border-radius: 4px;
+  padding: 7px 12px;
+  border-radius: 6px;
   background: rgba(43, 121, 255, 0.16);
   border: 1px solid rgba(43, 121, 255, 0.4);
   color: var(--blue-soft);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 850;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  user-select: none;
+  cursor: default;
+  flex-shrink: 0;
 }
 
 .footer-orter-list {
