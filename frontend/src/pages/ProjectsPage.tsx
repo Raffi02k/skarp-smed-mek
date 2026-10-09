@@ -9,7 +9,7 @@ export default function ProjectsPage() {
     <>
       <PageMeta
         title="Projekt & galleri | Skarp Smed & Mek"
-        description="Projektgalleri för specialtillverkning, svets, smide och maskinreparation. Riktiga projektbilder läggs in före lansering."
+        description="Projektgalleri för specialtillverkning i svartstål och rostfritt, svets, smide och maskinreparation. Riktiga projektbilder läggs in före lansering."
         path="/projekt"
       />
       <PageHero

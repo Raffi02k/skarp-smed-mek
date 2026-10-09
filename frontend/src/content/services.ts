@@ -17,20 +17,47 @@ export type Service = {
 
 export const services: Service[] = [
   {
+    slug: 'svartstal-rostfritt',
+    title: 'Svartstål & rostfritt stål',
+    shortTitle: 'Svartstål & rostfritt',
+    eyebrow: 'PRECISIONSSVETS · KVALITETSSTÅL · HÅLLBARHET',
+    intro:
+      'Kvalificerad tillverkning och svetsning i både konstruktionsstål (svartstål) och rostfritt stål för industri, lantbruk och speciallösningar.',
+    description:
+      'Att arbeta i både vanligt svartstål och rostfritt stål ställer höga krav på materialkännedom, rätt svetsmetod och precision. Skarp Smed & Mek hanterar allt från tunga konstruktioner och reparationer i svartstål till finare detaljer, räcken och specialfästen i rostfritt stål. Varje arbete utförs med noggrannhet och metod anpassad för den miljö och belastning detaljen ska klara.',
+    image: temporaryMedia.weldingCloseup,
+    secondaryImage: temporaryMedia.weldingWorkshop,
+    details: [
+      'Svetsning och tillverkning i svartstål och rostfritt',
+      'TIG- och MIG/MAG-svetsning med rena och starka fogar',
+      'Måttanpassade fästen, konsoler och konstruktioner',
+      'Rostfria räcken, ramar och korrosionståliga detaljer',
+      'Arbete i verkstad i Götene eller montage på plats',
+    ],
+    benefits: [
+      'Erfarenhet av olika stålkvaliteter och metoder',
+      'Hållbara lösningar anpassade för utomhus- och industrimiljö',
+      'Direkt dialog med smeden som tillverkar produkten',
+    ],
+    seoTitle: 'Svartstål & Rostfritt i Götene | Skarp Smed & Mek',
+    seoDescription:
+      'Specialtillverkning och svetsning i svartstål och rostfritt stål från Götene. Skarp Smed & Mek levererar hållbara metallösningar i Västra Götaland.',
+  },
+  {
     slug: 'specialtillverkning-metall',
     title: 'Specialtillverkning i metall',
     shortTitle: 'Specialtillverkning',
     eyebrow: 'MÅTTBESTÄLLT · PRAKTISKT · ROBUST',
     intro:
-      'Beställningsjobb i metall för kunder som behöver en lösning som inte finns färdig på hyllan.',
+      'Beställningsjobb i svartstål, rostfritt och metall för kunder som behöver en lösning som inte finns färdig på hyllan.',
     description:
-      'Lucas tillverkar specialprodukter på beställning och vill växa just den delen av verksamheten. Exempel som redan nämnts är motorfästen och stålstaket. Varje uppdrag bedöms utifrån behov, konstruktion och användning.',
+      'Lucas tillverkar specialprodukter på beställning i både svartstål och rostfritt stål och vill växa just den delen av verksamheten. Exempel är motorfästen, maskindetaljer, konsoler och stålstaket. Varje uppdrag bedöms utifrån behov, konstruktion och användning.',
     image: temporaryMedia.weldingWorkshop,
     secondaryImage: temporaryMedia.weldingCloseup,
     details: [
-      'Specialprodukter i metall efter behov',
-      'Motorfästen och liknande specialdetaljer',
-      'Stålstaket och andra stålkonstruktioner',
+      'Specialprodukter i svartstål och rostfritt efter behov',
+      'Motorfästen och maskinspecifika fästen',
+      'Stålstaket, grindar och räckeslösningar',
       'Anpassning, tillverkning och reparation',
     ],
     benefits: [
@@ -38,9 +65,9 @@ export const services: Service[] = [
       'Lösningar anpassade efter uppdraget',
       'Möjlighet att ta både lokala och större jobb',
     ],
-    seoTitle: 'Specialtillverkning i metall i Götene | Skarp Smed & Mek',
+    seoTitle: 'Specialtillverkning i svartstål & rostfritt i Götene | Skarp Smed & Mek',
     seoDescription:
-      'Specialtillverkning i metall från Götene. Skarp Smed & Mek hjälper till med måttbeställda metallprodukter, stålkonstruktioner och speciallösningar.',
+      'Specialtillverkning i svartstål och rostfritt från Götene. Skarp Smed & Mek hjälper till med måttbeställda stålkonstruktioner och speciallösningar.',
   },
   {
     slug: 'smed-svets',

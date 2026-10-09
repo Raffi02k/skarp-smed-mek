@@ -8,7 +8,7 @@ export default function AboutPage() {
     <>
       <PageMeta
         title="Om Skarp Smed & Mek | Lucas Skarp, Götene"
-        description="Skarp Smed & Mek drivs av FA Lucas Skarp i Götene och arbetar med svetsning, smide, specialtillverkning och maskinreparation."
+        description="Skarp Smed & Mek drivs av FA Lucas Skarp i Götene och arbetar med svetsning, smide, specialtillverkning i svartstål och rostfritt samt maskinreparation."
         path="/om-oss"
       />
       <PageHero
@@ -21,9 +21,9 @@ export default function AboutPage() {
         <div className="shell feature-grid about-grid">
           <div className="feature-copy">
             <p className="eyebrow">LUCAS SKARP</p>
-            <h2>Svetsare, smed och mekaniskt problemlösare.</h2>
+            <h2>Svetsare, smed och mekanisk problemlösare.</h2>
             <p>
-              Lucas har beskrivit verksamheten som en smidesfirma där det mesta kretsar kring stål och svets. Han tillverkar specialprodukter på beställning, reparerar maskiner och hyr även ut sin arbetskraft till verkstäder – framför allt för svetsning.
+              Lucas verksamhet kretsar kring praktiskt stål- och svetsarbete – med stor erfarenhet av både robust svartstål och finare rostfritt stål. Han tillverkar kundanpassade produkter på beställning, reparerar maskiner och hyr även ut sin arbetskraft till verkstäder som behöver extra svetskompetens.
             </p>
             <p>
               Basen är {siteContent.city}. Målet är främst fler jobb i {siteContent.region}, men för större uppdrag kan resan vara betydligt längre.
@@ -31,7 +31,7 @@ export default function AboutPage() {
             <Link className="button button-primary" to="/kontakt#offert">Kontakta Lucas</Link>
           </div>
           <div className="feature-media">
-            <img src={temporaryMedia.weldingCloseup} alt="Tillfällig bild på svetsarbete" loading="lazy" decoding="async" />
+            <img src={temporaryMedia.weldingCloseup} alt="Svetsarbete i stålverkstad" loading="lazy" decoding="async" />
             <div className="feature-badge about-brand-badge"><span>VARUMÄRKE</span><strong>Skarp Smed & Mek</strong></div>
           </div>
         </div>
@@ -41,7 +41,7 @@ export default function AboutPage() {
           <dl className="facts-panel">
             <div><dt>Bas</dt><dd>Götene</dd></div>
             <div><dt>Primärt område</dt><dd>Västra Götaland</dd></div>
-            <div><dt>Fokus framåt</dt><dd>Specialtillverkning</dd></div>
+            <div><dt>Fokus framåt</dt><dd>Svartstål, rostfritt &amp; special</dd></div>
             <div><dt>Juridiskt namn</dt><dd>FA Lucas Skarp</dd></div>
           </dl>
         </div>

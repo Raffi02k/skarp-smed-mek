@@ -22,7 +22,7 @@ export default function HomePage() {
     <>
       <PageMeta
         title="Skarp Smed & Mek | Svets, smide & specialtillverkning i Götene"
-        description="Skarp Smed & Mek i Götene – specialtillverkning i metall, svets, smide, maskinreparation och flexibel svetskompetens i Västra Götaland."
+        description="Skarp Smed & Mek i Götene – specialtillverkning i svartstål och rostfritt, svets, smide, maskinreparation och flexibel svetskompetens i Västra Götaland."
         path="/"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
@@ -50,7 +50,7 @@ export default function HomePage() {
           />
 
           <h1 className="hero-video__subtitle">
-            Specialtillverkning i metall, svetsning, smide och maskinreparation i {siteContent.city} &amp; {siteContent.region}.
+            Specialtillverkning i svartstål och rostfritt, svetsning, smide och maskinreparation i {siteContent.city} &amp; {siteContent.region}.
           </h1>
 
           <div className="hero-video__ctas">
@@ -68,9 +68,9 @@ export default function HomePage() {
         <div className="trust-strip-track">
           {[0, 1].map((copy) => (
             <div className="trust-strip-group" key={copy} aria-hidden={copy === 1 ? true : undefined}>
-              <div><strong>01</strong><span>Specialtillverkning efter behov</span></div>
-              <div><strong>02</strong><span>Svets, smide & reparation</span></div>
-              <div><strong>03</strong><span>Flexibel för verkstad & fältjobb</span></div>
+              <div><strong>01</strong><span>Svartstål &amp; rostfritt</span></div>
+              <div><strong>02</strong><span>Svets, smide &amp; reparation</span></div>
+              <div><strong>03</strong><span>Flexibel för verkstad &amp; fältjobb</span></div>
               <div><strong>04</strong><span>Reser för större uppdrag</span></div>
             </div>
           ))}
@@ -82,10 +82,10 @@ export default function HomePage() {
           <div className="section-heading split-heading">
             <div>
               <p className="eyebrow">TJÄNSTER</p>
-              <h2>Från idé till färdig metallösning.</h2>
+              <h2>Från idé till färdig stål- och metallösning.</h2>
             </div>
             <p>
-              Fokus ligger på praktiska jobb där något behöver tillverkas, svetsas, repareras eller anpassas. Varje huvudtjänst får en egen sida så både kunden och Google förstår exakt vad Skarp Smed & Mek erbjuder.
+              Fokus ligger på praktiska jobb där något behöver tillverkas, svetsas, repareras eller anpassas – i slitstarkt svartstål eller rostfritt. Varje huvudtjänst får en egen sida så både kunden och Google förstår exakt vad Skarp Smed & Mek erbjuder.
             </p>
           </div>
 
@@ -110,24 +110,24 @@ export default function HomePage() {
       <section className="section feature-split">
         <div className="shell feature-grid">
           <div className="feature-media">
-            <img src={temporaryMedia.weldingCloseup} alt="Tillfällig bild på svetsarbete" loading="lazy" decoding="async" />
+            <img src={temporaryMedia.weldingCloseup} alt="Svetsarbete i svartstål och rostfritt stål" loading="lazy" decoding="async" />
             <div className="feature-badge">
               <span>FOKUS</span>
-              <strong>Specialtillverkning</strong>
+              <strong>Svartstål &amp; Rostfritt</strong>
             </div>
           </div>
           <div className="feature-copy">
             <p className="eyebrow">DET LUCAS VILL VÄXA MED</p>
-            <h2>Beställ något som faktiskt passar jobbet.</h2>
+            <h2>Specialtillverkning i svartstål &amp; rostfritt stål.</h2>
             <p>
-              Specialtillverkning är den del av verksamheten som ska få extra utrymme. Motorfästen, stålstaket och andra kundanpassade metallprodukter visar bredden – men sidan ska framför allt göra det enkelt att beskriva ett behov och få kontakt direkt.
+              Specialtillverkning i svartstål och rostfritt är den del av verksamheten som får extra utrymme. Motorfästen, stålstaket, räcken, konsoler och kundanpassade stålkonstruktioner visar bredden – oavsett om jobbet kräver tåligt konstruktionsstål eller korrosionsbeständigt rostfritt stål med hög ytfinish.
             </p>
             <ul className="check-list">
-              <li>Utgå från behov, mått och användning</li>
-              <li>Tydligt offertflöde för privatpersoner och företag</li>
-              <li>Projektbilder som bygger förtroende över tid</li>
+              <li>Måttbeställda detaljer och konstruktioner efter behov</li>
+              <li>TIG- &amp; MIG/MAG-svetsning i svartstål och rostfritt</li>
+              <li>Tydligt offertflöde för privatpersoner, lantbruk och företag</li>
             </ul>
-            <Link className="text-link large" to="/tjanster/specialtillverkning-metall">Läs om specialtillverkning →</Link>
+            <Link className="text-link large" to="/tjanster/svartstal-rostfritt">Läs om svartstål &amp; rostfritt →</Link>
           </div>
         </div>
       </section>

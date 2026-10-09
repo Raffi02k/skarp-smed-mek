@@ -81,9 +81,10 @@ export default function ContactForm() {
           Tjänst
           <select name="service" defaultValue="">
             <option value="">Välj tjänst</option>
+            <option>Svartstål &amp; rostfritt stål</option>
             <option>Specialtillverkning i metall</option>
-            <option>Smed & svets</option>
-            <option>Maskinreparation & mek</option>
+            <option>Smed &amp; svets</option>
+            <option>Maskinreparation &amp; mek</option>
             <option>Inhyrd svetskompetens</option>
             <option>Annat</option>
           </select>

@@ -8,7 +8,7 @@ export default function ContactPage() {
     <>
       <PageMeta
         title="Kontakt & offert | Skarp Smed & Mek"
-        description="Kontakta Skarp Smed & Mek för specialtillverkning, svets, smide, maskinreparation eller inhyrd svetskompetens. Utgår från Götene."
+        description="Kontakta Skarp Smed & Mek för specialtillverkning i svartstål och rostfritt, svets, smide, maskinreparation eller inhyrd svetskompetens. Utgår från Götene."
         path="/kontakt"
       />
       <PageHero

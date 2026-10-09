@@ -4,7 +4,7 @@ export const siteContent = {
   city: 'Götene',
   region: 'Västra Götaland',
   country: 'Sverige',
-  tagline: 'Specialtillverkning i metall, svets, smide och praktiska mekaniska lösningar.',
+  tagline: 'Specialtillverkning i svartstål och rostfritt, svets, smide och praktiska mekaniska lösningar.',
   shortDescription:
     'Skarp Smed & Mek utgår från Götene och arbetar främst i Västra Götaland. För större uppdrag kan arbetet utföras längre bort i Sverige.',
   serviceArea:

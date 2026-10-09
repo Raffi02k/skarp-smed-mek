@@ -55,12 +55,12 @@ export const locations: LocationData[] = [
     pillLabel: 'Smed & Mekanik i Götene',
     heroTitle: 'Smed & mekanisk verkstad i Götene',
     heroSubtitle:
-      'Skarp Smed & Mek har sin fasta verkstad i Götene. Vi hjälper lokala företag, lantbruk, verkstäder och privatpersoner med specialtillverkning i metall, certifierat smide, svetsning och maskinreparation.',
+      'Skarp Smed & Mek har sin fasta verkstad i Götene. Vi hjälper lokala företag, lantbruk, verkstäder och privatpersoner med specialtillverkning i svartstål och rostfritt, certifierat smide, svetsning och maskinreparation.',
     shortAnswer:
-      'Skarp Smed & Mek utgår från Götene och levererar certifierat smide, svetsning, specialtillverkade metallprodukter och mekaniska reparationer med snabbast möjliga inställelsetid, personlig service och svar inom 24 timmar.',
+      'Skarp Smed & Mek utgår från Götene och levererar certifierat smide, svetsning, specialtillverkade detaljer i svartstål och rostfritt samt mekaniska reparationer med snabbast möjliga inställelsetid, personlig service och svar inom 24 timmar.',
     seoTitle: 'Smed & Mekanisk Verkstad i Götene | Skarp Smed & Mek',
     seoDescription:
-      'Lokal smed och mekanisk verkstad i Götene. Specialtillverkning i metall, svetsning, maskinreparation och montage för företag och privatpersoner. Begär offert idag!',
+      'Lokal smed och mekanisk verkstad i Götene. Specialtillverkning i svartstål och rostfritt, svetsning, maskinreparation och montage för företag och privatpersoner. Begär offert idag!',
     stats: {
       stat1: { value: 'Bas i Götene', label: 'Egen verkstad' },
       stat2: { value: '< 24h', label: 'Svar på förfrågan' },
@@ -72,7 +72,7 @@ export const locations: LocationData[] = [
       {
         number: '01',
         title: 'Specialtillverkning i Götene',
-        description: 'Kundanpassade stålkonstruktioner, motorfästen, staket och speciallösningar tillverkade i verkstaden i Götene.',
+        description: 'Kundanpassade stålkonstruktioner i svartstål och rostfritt, motorfästen, staket och speciallösningar tillverkade i verkstaden i Götene.',
         serviceSlug: 'specialtillverkning-metall',
       },
       {

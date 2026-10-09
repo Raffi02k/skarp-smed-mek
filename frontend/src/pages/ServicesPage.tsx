@@ -9,13 +9,13 @@ export default function ServicesPage() {
     <>
       <PageMeta
         title="Tjänster | Skarp Smed & Mek"
-        description="Specialtillverkning i metall, svets, smide, maskinreparation och inhyrd svetskompetens från Götene."
+        description="Specialtillverkning i svartstål och rostfritt, svets, smide, maskinreparation och inhyrd svetskompetens från Götene."
         path="/tjanster"
       />
       <PageHero
         eyebrow="TJÄNSTER"
-        title="Metall, svets och mek – uppdelat efter det du faktiskt behöver."
-        intro="Varje viktig tjänst har en egen sida. Det gör det lättare för kunden att hitta rätt och ger en starkare SEO-struktur än en enda lång samlingssida."
+        title="Svartstål, rostfritt, svets och mek – anpassat efter det du behöver."
+        intro="Från kraftigt svartstål och precisionssvetsat rostfritt till maskinmekanik och smide. Varje viktig tjänst har en egen sida med tydlig information och smidigt offertförfrågan."
         image={temporaryMedia.weldingWorkshop}
       />
       <section className="section">
