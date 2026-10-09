@@ -9,19 +9,59 @@ export default function ContactForm() {
   const matchedLocation = ortSlug ? locationBySlug(ortSlug) : null
   const defaultOrt = matchedLocation ? matchedLocation.name : (ortSlug || '')
 
-  const [message, setMessage] = useState('')
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [statusMessage, setStatusMessage] = useState('')
 
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setMessage('Designversion: formuläret kopplas till Lucas e-post innan publicering.')
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    // Honeypot check
+    if (formData.get('website')) {
+      setStatus('success')
+      setStatusMessage('Tack! Din förfrågan har mottagits.')
+      return
+    }
+
+    setStatus('submitting')
+    setStatusMessage('')
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+        },
+        body: formData,
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setStatus('success')
+        setStatusMessage('Tack för din förfrågan! Vi återkommer till dig så snart vi kan.')
+        form.reset()
+      } else {
+        setStatus('error')
+        setStatusMessage(data.message || 'Ett fel uppstod när förfrågan skulle skickas. Försök igen.')
+      }
+    } catch {
+      setStatus('error')
+      setStatusMessage('Kunde inte nå servern. Kontrollera din anslutning eller ring oss direkt.')
+    }
   }
 
   return (
-    <form className="contact-form" id="offert" onSubmit={submit}>
+    <form className="contact-form" id="offert" onSubmit={submit} action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="37fc8de5-18d1-45b4-9d0f-a53696d86b46" />
+      <input type="hidden" name="subject" value="Ny offertförfrågan – Skarp Smed & Mek" />
+      <input type="hidden" name="from_name" value="Skarp Smed & Mek" />
+
       <div className="form-head">
         <p className="eyebrow">OFFERTFÖRFRÅGAN</p>
         <h2>Berätta vad du behöver hjälp med</h2>
-        <p>Det här formuläret är förberett för webbplatsen. E-postmottagare och skarp backend kopplas in före lansering.</p>
+        <p>Fyll i formuläret så återkommer vi med prisförslag och tidsplan så snabbt som möjligt.</p>
       </div>
 
       <div className="form-grid">
@@ -64,8 +104,14 @@ export default function ContactForm() {
         <span>Jag godkänner att uppgifterna används för att besvara min förfrågan.</span>
       </label>
       <input className="honeypot" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-      <button className="button button-primary" type="submit">Skicka förfrågan</button>
-      {message && <p className="form-status" role="status">{message}</p>}
+      <button className="button button-primary" type="submit" disabled={status === 'submitting'}>
+        {status === 'submitting' ? 'Skickar...' : 'Skicka förfrågan'}
+      </button>
+      {statusMessage && (
+        <p className={`form-status ${status === 'success' ? 'status-success' : status === 'error' ? 'status-error' : ''}`} role="status">
+          {statusMessage}
+        </p>
+      )}
     </form>
   )
 }

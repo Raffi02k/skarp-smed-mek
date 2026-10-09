@@ -672,6 +672,8 @@ p { margin: 0; color: var(--muted); }
 .checkbox-row input { width: 18px; height: 18px; margin-top: 2px; }
 .honeypot { position: absolute!important; left: -9999px!important; width: 1px!important; height: 1px!important; opacity: 0!important; }
 .form-status { margin-top: 14px; padding: 11px 12px; background: rgba(19,86,216,.11); border-left: 3px solid var(--blue-bright); font-size: .82rem; }
+.form-status.status-success { background: rgba(22, 163, 74, 0.12); border-left-color: #22c55e; color: #86efac; }
+.form-status.status-error { background: rgba(239, 68, 68, 0.12); border-left-color: #ef4444; color: #fca5a5; }
 
 .legal-page, .not-found { min-height: 75vh; padding-top: 180px; padding-bottom: 100px; max-width: 900px; }
 .legal-page h1, .not-found h1 { font-size: clamp(3rem,6vw,6rem); margin-bottom: 24px; }
